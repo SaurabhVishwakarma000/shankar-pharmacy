@@ -3,10 +3,15 @@ const jwt = require("jsonwebtoken");
 const COOKIE_NAME = "pharmacy_admin_token";
 
 function getCookieOptions() {
+  const isProduction = process.env.NODE_ENV === "production";
   return {
     httpOnly: true, // not readable by frontend JS - protects against XSS token theft
-    secure: process.env.NODE_ENV === "production", // HTTPS-only in production
-    sameSite: "lax",
+    secure: isProduction, // HTTPS-only in production
+    // Frontend (Netlify) and backend (Render) live on different domains,
+    // so the cookie must be sent cross-site. That requires SameSite=None,
+    // which browsers only allow when Secure is also true (i.e. in production).
+    // Locally (http://127.0.0.1) both run on the same origin, so "lax" is fine.
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000 // 1 day; kept in sync with JWT_EXPIRES_IN default
   };
 }
