@@ -504,7 +504,18 @@ h6 {
   color: var(--default-color);
   font-size: 15px;
   padding: 100px 0 0;
+  position: relative;
   border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.footer-16::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), transparent 55%), transparent);
 }
 
 .footer-16 .footer-main {
@@ -674,7 +685,8 @@ h6 {
 }
 
 .footer-16 .footer-bottom {
-  padding: 30px 0;
+  padding: 26px 0;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 94%);
 }
 
 .footer-16 .footer-bottom .copyright p {
@@ -6365,6 +6377,11 @@ section,
   background-color: var(--background-color);
 }
 
+.admin-login-page {
+  background-image: radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--accent-color), transparent 90%), transparent 45%),
+    radial-gradient(circle at 85% 90%, color-mix(in srgb, var(--accent-color), transparent 92%), transparent 45%);
+}
+
 .admin-auth-wrapper {
   min-height: 100vh;
   display: flex;
@@ -6375,32 +6392,73 @@ section,
 
 .admin-auth-card {
   background-color: var(--surface-color);
-  border-radius: 12px;
-  padding: 40px 32px;
+  border-radius: 16px;
+  padding: 44px 32px 36px;
   width: 100%;
   max-width: 380px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 93%);
   text-align: center;
 }
 
 .admin-auth-logo {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--heading-font);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--heading-color);
   text-decoration: none;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.admin-auth-logo::before {
+  content: "S";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .admin-auth-subtitle {
   color: color-mix(in srgb, var(--default-color), transparent 30%);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   font-size: 15px;
 }
 
 .admin-auth-card form {
   text-align: left;
+}
+
+.admin-auth-card .form-control {
+  border-radius: 8px;
+  border-color: color-mix(in srgb, var(--default-color), transparent 82%);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-auth-card .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 82%);
+}
+
+.admin-auth-card .btn-primary {
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-auth-card .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-color), transparent 65%);
 }
 
 .password-input-wrapper {
@@ -6441,10 +6499,11 @@ section,
 
 .admin-auth-back-link {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .admin-auth-back-link:hover {
@@ -6454,13 +6513,35 @@ section,
 .admin-topbar {
   background-color: var(--surface-color);
   padding: 16px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+  border-bottom: 3px solid var(--accent-color);
   margin-bottom: 30px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .admin-topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 700;
   color: var(--heading-color);
+}
+
+.admin-topbar-brand::before {
+  content: "S";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .admin-topbar-user {
@@ -6468,6 +6549,11 @@ section,
   align-items: center;
   font-size: 14px;
   color: var(--default-color);
+}
+
+.admin-topbar-user #admin-username-display {
+  font-weight: 600;
+  color: var(--heading-color);
 }
 
 .admin-dashboard-placeholder {
@@ -6496,9 +6582,24 @@ section,
 
 .admin-stat-card {
   background-color: var(--surface-color);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 22px 24px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--accent-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.admin-stat-card.stat-available {
+  border-left-color: #1f9d55;
+}
+
+.admin-stat-card.stat-out {
+  border-left-color: #d92d20;
 }
 
 .admin-stat-card .stat-label {
@@ -6537,6 +6638,19 @@ section,
   font-weight: 700;
   color: var(--heading-color);
   margin: 0;
+  position: relative;
+  padding-left: 14px;
+}
+
+.admin-section-header h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--accent-color);
 }
 
 .admin-search-row {
@@ -6553,9 +6667,10 @@ section,
 
 .admin-table-wrapper {
   background-color: var(--surface-color);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow-x: auto;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 93%);
 }
 
 .admin-medicines-table {
@@ -6578,6 +6693,15 @@ section,
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+}
+
+.admin-medicines-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.admin-medicines-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 96%);
 }
 
 .admin-medicines-table tr:last-child td {
@@ -6647,6 +6771,31 @@ section,
 .admin-confirm-text {
   font-size: 15px;
   margin-bottom: 0;
+}
+
+.admin-dashboard-page .modal-content {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.16);
+}
+
+.admin-dashboard-page .modal-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  padding: 20px 24px;
+}
+
+.admin-dashboard-page .modal-title {
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.admin-dashboard-page .modal-body {
+  padding: 24px;
+}
+
+.admin-dashboard-page .modal-footer {
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  padding: 16px 24px;
 }
 
 /*--------------------------------------------------------------
